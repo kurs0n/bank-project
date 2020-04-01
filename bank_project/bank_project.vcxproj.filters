@@ -25,6 +25,12 @@
     <Filter Include="Account">
       <UniqueIdentifier>{f4e39a98-6144-422b-a3b1-aac12c2d3e4c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Underinterfacebase">
+      <UniqueIdentifier>{ddf8b1fe-8441-467a-ba7e-317b77ec1b64}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Underinterfaces">
+      <UniqueIdentifier>{41e05320-c34f-4b31-b0f3-4683a9cd08a5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -36,17 +42,23 @@
     <ClInclude Include="targetver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="System_bank.h">
-      <Filter>System_bank</Filter>
-    </ClInclude>
-    <ClInclude Include="Login_interface.h">
-      <Filter>Login_interface</Filter>
-    </ClInclude>
     <ClInclude Include="Menu.h">
       <Filter>Menu</Filter>
     </ClInclude>
     <ClInclude Include="Account.h">
       <Filter>Account</Filter>
+    </ClInclude>
+    <ClInclude Include="Logininterface.h">
+      <Filter>Login_interface</Filter>
+    </ClInclude>
+    <ClInclude Include="Systembank.h">
+      <Filter>System_bank</Filter>
+    </ClInclude>
+    <ClInclude Include="Underinterfacebase.h">
+      <Filter>Underinterfacebase</Filter>
+    </ClInclude>
+    <ClInclude Include="Interfaceaboutme.h">
+      <Filter>Underinterfaces</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -56,17 +68,20 @@
     <ClCompile Include="bank_project.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="System_bank.cpp">
-      <Filter>System_bank</Filter>
-    </ClCompile>
-    <ClCompile Include="Login_interface.cpp">
-      <Filter>Login_interface</Filter>
-    </ClCompile>
     <ClCompile Include="Menu.cpp">
       <Filter>Menu</Filter>
     </ClCompile>
     <ClCompile Include="Account.cpp">
       <Filter>Account</Filter>
+    </ClCompile>
+    <ClCompile Include="Logininterface.cpp">
+      <Filter>Login_interface</Filter>
+    </ClCompile>
+    <ClCompile Include="Systembank.cpp">
+      <Filter>System_bank</Filter>
+    </ClCompile>
+    <ClCompile Include="Interfaceaboutme.cpp">
+      <Filter>Underinterfaces</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

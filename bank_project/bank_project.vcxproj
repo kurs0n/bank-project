@@ -152,16 +152,19 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Account.h" />
-    <ClInclude Include="Login_interface.h" />
+    <ClInclude Include="Interfaceaboutme.h" />
+    <ClInclude Include="Logininterface.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="stdafx.h" />
-    <ClInclude Include="System_bank.h" />
+    <ClInclude Include="Systembank.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="Underinterfacebase.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Account.cpp" />
     <ClCompile Include="bank_project.cpp" />
-    <ClCompile Include="Login_interface.cpp" />
+    <ClCompile Include="Interfaceaboutme.cpp" />
+    <ClCompile Include="Logininterface.cpp" />
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -169,7 +172,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="System_bank.cpp" />
+    <ClCompile Include="Systembank.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

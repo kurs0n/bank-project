@@ -1,8 +1,8 @@
-#include "System_bank.h"
+#include "Systembank.h"
 #include <conio.h>
 int main()
 {
-	System_bank bank;
+	Systembank bank;
 	bank.connect_with_database();
 	bank.system();
 	_getch();

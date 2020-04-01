@@ -5,4 +5,6 @@ Account::Account()
 	Surname = "";
 	Username = "";
 	Password = "";
+	how_many_dates = 0;
+	cash = "";
 }
