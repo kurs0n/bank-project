@@ -9,7 +9,10 @@ struct Account {
 	std::string Surname;
 	std::vector <std::string> date;
 	std::string cash;
+	std::string bill;
+	std::string account_id;
 	int how_many_dates;
 	Account();
-    //std::ostream& operator<<(std::ostream& os, Account &acc);
+	Account &operator=(Account &acc);
+    //std::ostream& operator<<(std::ostream& os, Account &acc); 
 };

@@ -5,4 +5,5 @@ class Underinterfacebase{
 public:
 	virtual void display() =0 ;
 	Account acc;
+	Underinterfacebase();
 };

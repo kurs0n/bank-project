@@ -18,6 +18,8 @@ void Logininterface::display_interface()
 		if (actual_acc.Username == "")
 		{
 		   std::cout << "Wrong password or username" << std::endl;
+		   _getch();
+		   system("cls");
 		}
 	}
 }
