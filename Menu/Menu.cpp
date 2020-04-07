@@ -4,13 +4,16 @@ void Menu::display()
 {
 	int option=0;
 	system("cls");
+	set_data();
 	std::cout << "Welcome " << actual_acc.Name << std::endl;
-	while (true)
+	while (log == false )
 	{
 		set_data();//refreshing data 
 		std::cout << "Choose option: " << std::endl;
 		std::cout << "1. About me" << std::endl;
 		std::cout << "2. Transaction" << std::endl;
+		std::cout << "3. Log acc" << std::endl;
+		std::cout << "4. Exit" << std::endl;
 		std::cout << "Your choose: ";
 		std::cin >> option;
 		if (std::cin.fail())
@@ -154,6 +157,7 @@ void Menu::go_to_interface(int op)
 	  }
 	 case 2:
 	  {
+		 system("cls");
 		 init_transferinterface();
 		 transfer_data(transfer);
 		 transfer->display();
@@ -163,10 +167,20 @@ void Menu::go_to_interface(int op)
 		 must_click();
 		break;
 	  }
-	  /*case 3:
+	  case 3:
 	  {
+		relog();
+		std::cout << "Press any key to back to the Login interface" << std::endl;
+		must_click();
 		break;
-	  }*/// soon ;P
+	  }
+	  case 4:
+	  {
+		  mysql_close(mysql);
+		  std::cout << "Goodbye :)" << std::endl;
+		  _getch();
+		  exit(0);
+	  }
 	  default:
 	  {
 		  std::cout << "Wrong choose!" << std::endl;
@@ -195,4 +209,9 @@ void Menu::must_click()
 {
 	_getch();
 	system("cls");
+}
+void Menu::relog()
+{
+	actual_acc.reset();
+	log = true;
 }

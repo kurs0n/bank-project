@@ -72,7 +72,8 @@ const char* Interfacetransfer::make_query_of_bills()
 	strcat_s(temp, sizeof temp, acc.Username.c_str());
 	strcat_s(temp, sizeof temp, "'");
 	strcat_s(temp, sizeof temp, " ORDER BY id");
-	static std::string temp1 = temp;
+	static std::string temp1;
+	temp1 = temp;
 	const char *temp3 = temp1.c_str();
 	return temp3;
 }

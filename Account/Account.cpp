@@ -25,3 +25,15 @@ Account &Account::operator=(Account &acc)
 		this->date.push_back(acc.date[i]);
 	}
 }
+void Account::reset()
+{
+	this->Name = "";
+	this->Surname = "";
+	this->Username = "";
+	this->Password = "";
+	this->cash = "";
+	this->how_many_dates = NULL;
+	this->bill = "";
+	this->account_id = "";
+	date.clear();
+}

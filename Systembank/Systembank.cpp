@@ -7,7 +7,6 @@ Systembank::Systembank()
 	login = "root";
 	password = "1234";
 	database = "bank";
-	log_int = new Logininterface();
 }
 Systembank::~Systembank()
 {
@@ -15,6 +14,7 @@ Systembank::~Systembank()
 }
 void Systembank::connect_with_database()
 {
+	log_int = new Logininterface();
 	log_int->mysql = &mysql;
 	menu.mysql = &mysql;
 	mysql_real_connect(&mysql, adress, login, password, database, 0, NULL, 0);
@@ -24,7 +24,7 @@ void Systembank::system()
 {
 	log_int->display_interface();
 	menu.actual_acc = log_int->return_actual_acc();//transfer to menu.acc actual acc in systembank
+	menu.display();
 	delete log_int;
-	menu.display(); 
 	mysql_close(&mysql);
 }

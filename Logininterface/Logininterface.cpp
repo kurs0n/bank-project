@@ -32,6 +32,7 @@ Account Logininterface::check_login_and_password()
 		{
 			temp.Username = accounts[i].Username;
 			temp.Password = accounts[i].Password;
+			accounts.clear();
 			return temp;
 		}
 	}
@@ -40,7 +41,7 @@ Account Logininterface::check_login_and_password()
 void Logininterface::get_accounts_from_db()
 {
 	mysql_query(mysql, "SELECT login FROM accounts ORDER BY id");
-	std::vector<std::string> Username;// additional variable which get username from db
+	std::vector<std::string> Username(0);// additional variable which get username from db
 	MYSQL_RES *idquery = mysql_store_result(mysql);
 	MYSQL_ROW record;
 	while ((record = mysql_fetch_row(idquery)) != NULL)

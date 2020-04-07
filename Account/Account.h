@@ -14,5 +14,6 @@ struct Account {
 	int how_many_dates;
 	Account();
 	Account &operator=(Account &acc);
+	void reset();
     //std::ostream& operator<<(std::ostream& os, Account &acc); 
 };

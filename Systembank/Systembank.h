@@ -9,9 +9,9 @@ public:	Systembank();
 	~Systembank();
 	void connect_with_database(); 
 	void system();
-private:
 	MYSQL mysql;
+private:
 	Logininterface* log_int;
 	Menu menu;
-	char* adress,*login,*password,*database;
+	char* adress, *login, *password, *database;
 };
