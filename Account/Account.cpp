@@ -10,7 +10,7 @@ Account::Account()
 	bill = "";
 	account_id = "";
 }
-Account &Account::operator=(Account &acc)
+Account &Account::operator=(const Account &acc)
 {
 	this->Name = acc.Name;
 	this->Surname = acc.Surname;

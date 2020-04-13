@@ -13,7 +13,7 @@ struct Account {
 	std::string account_id;
 	int how_many_dates;
 	Account();
-	Account &operator=(Account &acc);
+	Account &operator=(const Account &acc);
 	void reset();
     //std::ostream& operator<<(std::ostream& os, Account &acc); 
 };
