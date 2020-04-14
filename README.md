@@ -7,4 +7,3 @@ This is console application which connect with local database using mysql connec
 - History of transfers 
 - Making transfers
 - Changing accounts
-More soon...

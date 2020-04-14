@@ -40,9 +40,9 @@ Account Logininterface::check_login_and_password()
 }
 void Logininterface::get_accounts_from_db()
 {
-	mysql_query(mysql, "SELECT login FROM accounts ORDER BY id");
+	mysql_query(&Databasecontroller::mysql, "SELECT login FROM accounts ORDER BY id");
 	std::vector<std::string> Username(0);// additional variable which get username from db
-	MYSQL_RES *idquery = mysql_store_result(mysql);
+	MYSQL_RES *idquery = mysql_store_result(&Databasecontroller::mysql);
 	MYSQL_ROW record;
 	while ((record = mysql_fetch_row(idquery)) != NULL)
 	{
@@ -52,9 +52,9 @@ void Logininterface::get_accounts_from_db()
 			how_many_acc++;
 		}
 	}
-	mysql_query(mysql, "SELECT haslo FROM accounts ORDER BY id");
-	std::vector<std::string> Password;// additional variable which get password from db
-	idquery = mysql_store_result(mysql);
+	mysql_query(&Databasecontroller::mysql, "SELECT haslo FROM accounts ORDER BY id");
+	std::vector<std::string> Password;
+	idquery = mysql_store_result(&Databasecontroller::mysql);
 	while ((record = mysql_fetch_row(idquery)) != NULL)
 	{
 		for (int i = 0; i < mysql_num_fields(idquery); i++)

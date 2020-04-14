@@ -9,24 +9,24 @@ void Interfacetransfer::display()
 }
 void Interfacetransfer::do_transfer()
 {
-	bool money = false;
+	bool money = false;// var which checking if you have enough money to transact in account already loggeed into the system.
 	for (int i = 0; i < another_accounts.size(); i++)
 	{
-		if (Number_bill == another_accounts[i].another_bill)
+		if (Number_bill == another_accounts[i].another_bill)// checks if the number of bill is correct with this accounts which is in database.
 		{
-			if (stoi(cash_to_transact) <= stoi(acc.cash))
-			{
-				mysql_query(mysql, make_transactionminus());
-				mysql_query(mysql, make_transactionplus());
-				mysql_query(mysql, make_date());
+			mysql_query(&Databasecontroller::mysql, Databasecontroller::query("UPDATE accounts_v SET stan = stan - "
+				+ cash_to_transact +  " WHERE Numer_rachunku = "+ acc.bill + " AND imie = " + Databasecontroller::quote + acc.Name + Databasecontroller::quote));
+			mysql_query(&Databasecontroller::mysql, Databasecontroller::query("UPDATE accounts_v SET stan = stan + "
+				+ cash_to_transact + " WHERE Numer_rachunku = "+ Number_bill + " AND imie = " + Databasecontroller::quote + get_name() + Databasecontroller::quote));
+			mysql_query(&Databasecontroller::mysql, Databasecontroller::query("INSERT dates(konto_id,data) VALUES (" + acc.account_id + "," + Databasecontroller::quote
+				+ get_date()+Databasecontroller::quote+")"));
 				std::cout << "Transaction success" << std::endl;
 				money = true;
 				break;
-			}
-			else { std::cout << "You don't have enough money" << std::endl;
-			money = true;
-			break;
-			}
+		}
+		else { std::cout << "You don't have enough money" << std::endl;
+		money = true;// this is tricky.
+		break;
 		}
 	}
 	if (money == false)
@@ -34,12 +34,14 @@ void Interfacetransfer::do_transfer()
 		std::cout << "Sorry but we haven't got this number of bill in our database" << std::endl;
 	}
 }
+
 void Interfacetransfer::get_informations_about_customers()
 {
-	mysql_query(mysql, make_query_of_bills());
+	mysql_query(&Databasecontroller::mysql, Databasecontroller::query("SELECT Numer_rachunku FROM bank.accounts_v WHERE login != "
+		+ Databasecontroller::quote + acc.Username + Databasecontroller::quote + "ORDER BY id"));
 	std::vector<std::string> records_bills(0);
 	std::vector<std::string> records_names(0);
-	MYSQL_RES *idquery = mysql_store_result(mysql);
+	MYSQL_RES *idquery = mysql_store_result(&Databasecontroller::mysql);
 	MYSQL_ROW record;
 	while ((record = mysql_fetch_row(idquery)) != NULL)
 	{
@@ -49,8 +51,9 @@ void Interfacetransfer::get_informations_about_customers()
 			records_bills.push_back(record[i]);
 		}
 	}
-	mysql_query(mysql, make_query_of_name_customers());
-	idquery = mysql_store_result(mysql);
+	mysql_query(&Databasecontroller::mysql, Databasecontroller::query("SELECT imie FROM bank.accounts_v WHERE login != "
+		+ Databasecontroller::quote + acc.Username + Databasecontroller::quote + "ORDER BY id"));
+	idquery = mysql_store_result(&Databasecontroller::mysql);
 	while ((record = mysql_fetch_row(idquery)) != NULL)
 	{
 		for (int i = 0; i < mysql_num_fields(idquery); i++)
@@ -64,99 +67,26 @@ void Interfacetransfer::get_informations_about_customers()
 		another_accounts[i].name = records_names[i];
 	}
 }
-const char* Interfacetransfer::make_query_of_bills()
+std::string Interfacetransfer::get_name()
 {
-	char temp[150];
-	strcpy_s(temp, sizeof temp, "SELECT Numer_rachunku FROM bank.accounts_v WHERE login != ");//adding chars using strcpy_s() function
-	strcat_s(temp, sizeof temp, "'");
-	strcat_s(temp, sizeof temp, acc.Username.c_str());
-	strcat_s(temp, sizeof temp, "'");
-	strcat_s(temp, sizeof temp, " ORDER BY id");
-	static std::string temp1;
-	temp1 = temp;
-	const char *temp3 = temp1.c_str();
-	return temp3;
-}
-const char* Interfacetransfer::make_query_of_name_customers()
-{
-	char temp[150];
-	strcpy_s(temp, sizeof temp, "SELECT imie FROM bank.accounts_v WHERE login != ");//adding chars using strcpy_s() function
-	strcat_s(temp, sizeof temp, "'");
-	strcat_s(temp, sizeof temp, acc.Username.c_str());
-	strcat_s(temp, sizeof temp, "'");
-	strcat_s(temp, sizeof temp, " ORDER BY id");
-	static std::string temp1;
-	temp1 = temp;
-	const char  *temp3 = temp1.c_str();
-	return temp3;
-}
-const char* Interfacetransfer::make_transactionplus()
-{
-	char temp[150];
-	static std::string name;
-	strcpy_s(temp, sizeof temp, "UPDATE accounts_v SET stan = stan + ");
-	strcat_s(temp, sizeof temp, cash_to_transact.c_str());
-	strcat_s(temp, sizeof temp, " WHERE Numer_rachunku = ");
-	strcat_s(temp, sizeof temp, Number_bill.c_str());
-	strcat_s(temp, sizeof temp, " AND ");
-	strcat_s(temp, sizeof temp, " imie = ");
-	for (int i = 0; i < another_accounts.size(); i++)
-	{
-		if (Number_bill == another_accounts[i].another_bill)
+		for (int i = 0; i < another_accounts.size(); i++)
 		{
-			name = another_accounts[i].name;
-			break;
-		}
-	}
-	strcat_s(temp, sizeof temp, "'");
-	strcat_s(temp, sizeof temp, name.c_str());
-	strcat_s(temp, sizeof temp, "'");
-	static std::string temp1;
-	temp1 = temp;
-	const char *temp3 = temp1.c_str();
-	return temp3;
+			if (Number_bill == another_accounts[i].another_bill)
+			{
+				return another_accounts[i].name;
+			}
+	    }
 }
-const char* Interfacetransfer::make_transactionminus()
+std::string Interfacetransfer::get_date()
 {
-	char temp[150];
-	strcpy_s(temp, sizeof temp, "UPDATE accounts_v SET stan = stan - ");
-	strcat_s(temp, sizeof temp, cash_to_transact.c_str());
-	strcat_s(temp, sizeof temp, " WHERE Numer_rachunku = ");
-	strcat_s(temp, sizeof temp, acc.bill.c_str());
-	strcat_s(temp, sizeof temp, " AND ");
-	strcat_s(temp, sizeof temp, "imie = ");
-	strcat_s(temp, sizeof temp, "'");
-	strcat_s(temp, sizeof temp, acc.Name.c_str());
-	strcat_s(temp, sizeof temp, "'");
-	static std::string temp1;
-	temp1 = temp;
-	const char *temp3 = temp1.c_str();
-	return temp3;
-}
-const char* Interfacetransfer::make_date()
-{
-	SYSTEMTIME st;//time 
+	SYSTEMTIME st;
 	GetSystemTime(&st);
-	static std::string day;
-	static std::string month;
-	static std::string year;
+	std::string day;
+	std::string month;
+	std::string year;
 	day = std::to_string(st.wDay);
 	month = std::to_string(st.wMonth);
 	year = std::to_string(st.wYear);
-	char temp[150];
-	strcpy_s(temp, sizeof temp, "INSERT dates(konto_id,data) VALUES (");
-	strcat_s(temp, sizeof temp, acc.account_id.c_str());
-	strcat_s(temp, sizeof temp, ",");
-	strcat_s(temp, sizeof temp, "'");
-	strcat_s(temp, sizeof temp, year.c_str());
-	strcat_s(temp, sizeof temp, ".");
-	strcat_s(temp, sizeof temp, month.c_str());
-	strcat_s(temp, sizeof temp, ".");
-	strcat_s(temp, sizeof temp, day.c_str());
-	strcat_s(temp, sizeof temp, "'");
-	strcat_s(temp, sizeof temp, ")");
-	static std::string temp1;
-	temp1 = temp;
-	const char *temp3 = temp1.c_str();
-	return temp3;
+	std::string temp = year + "." + month + "." + day;
+	return temp;
 }

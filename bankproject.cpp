@@ -1,5 +1,6 @@
+#pragma once 
 #include "Systembank\Systembank.h"
-#include <conio.h>
+#include "Databasecontroller\Databasecontroller.h"
 #include <mysql.h>
 Systembank* bank;
 int main()
@@ -9,7 +10,6 @@ int main()
 		bank = new Systembank();
 		bank->connect_with_database();
 		bank->system();
-		mysql_close(&bank->mysql);
 		delete bank;
 	}
 }
