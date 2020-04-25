@@ -9,7 +9,7 @@
 /// <para> Makes queries.</para>
 /// <para> Init mysql. </para>
 /// </remarks>
-static class Databasecontroller {
+class Databasecontroller {
 public:
 	/// <summary>
 	/// MYSQL object which is initialazing in System_bank.
