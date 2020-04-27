@@ -1,12 +1,12 @@
 #include "Systembank.h"
-
+#include <cstdlib> 
 Systembank::Systembank()
 {
 	mysql_init(&Databasecontroller::mysql);
-	adress = "127.0.0.1";
-	login = "root";
-	password = "1234";
-	database = "bank";
+	adress = std::getenv("DB_ADRESS");
+	login = std::getenv("LOGIN");
+	password = std::getenv("PASSWORD");
+	database = std::getenv("DATABASE");
 }
 Systembank::~Systembank()
 {
